@@ -1,1 +1,1 @@
-docker run -p 5432:5432 -e POSTGRES_PASSOWRD=gaganDev@2004 postgres
+docker run -p 5432:5432 -e POSTGRES_PASSWORD=gaganDev@2004 postgres
