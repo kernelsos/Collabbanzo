@@ -4,12 +4,14 @@ import { Music, Radio, Users, Zap, PlayCircle, Headphones } from "lucide-react"
 import Link from "next/link"
 import { Appbar } from "./components/Appbar"
 import './globals.css';
+import { Redirect } from "./components/Redirect"
 
 
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background">
       <Appbar/>
+      <Redirect/>
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(120,60,200,0.1),transparent_50%)]" />
