@@ -1,11 +1,15 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ChevronUp, ChevronDown, Plus, Link as LinkIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { refresh } from 'next/cache'
+import axios from "axios";
+
+
 
 // Types
 export interface Video {
@@ -22,6 +26,8 @@ interface VideoPreview {
   title: string
   thumbnail: string
 }
+
+const REFRESH_INTERVAL_MS = 10 * 1000;
 
 export default function DashboardPage() {
   // Video state
@@ -69,6 +75,30 @@ export default function DashboardPage() {
   const [preview, setPreview] = useState<VideoPreview | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+
+
+async function refreshStreams() {
+  try {
+    const res = await axios.get(`/api/streams/my`);
+    console.log(res);
+    // TODO: Update state with res.data
+  } catch (error) {
+    console.error("Failed to refresh streams:", error);
+  }
+}
+
+useEffect(() => {
+  refreshStreams(); 
+  
+  const interval = setInterval(() => {
+    refreshStreams();
+  }, REFRESH_INTERVAL_MS);
+
+  return () => clearInterval(interval);
+}, []);
+
+
+
 
   // Video voting handler
   const handleVote = (videoId: string, voteType: 'up' | 'down') => {

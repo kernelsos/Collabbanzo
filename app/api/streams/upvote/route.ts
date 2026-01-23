@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
             status: 403
         })
     }
+    
     try {
         const data = UpvoteSchema.parse(await req.json());
         await prismaClient.upvote.create({
