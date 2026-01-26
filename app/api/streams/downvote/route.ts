@@ -35,6 +35,10 @@ export async function POST(req: NextRequest) {
                 }
             }
         });
+
+        return NextResponse.json({
+            message: "Done!";
+        })
         
     } catch (error) {
         return NextResponse.json({

@@ -18,13 +18,4 @@ export async function GET(req : NextRequest) {
                 status: 403
             })
         }
-
-        const streams = await prismaClient.stream.findMany({
-            where: {
-                userId: user.id
-            }
-        })
-        return NextResponse.json({
-            streams
-        })
 }
