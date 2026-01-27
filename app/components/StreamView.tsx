@@ -3,7 +3,9 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { ChevronUp, ChevronDown, Share2, Play, Trash2, X, MessageCircle, } from "lucide-react";
+import { ChevronUp, ChevronDown, Share2, Play,X, Trash2,MessageCircle, } from "lucide-react";
+import React from 'react';
+import { Twitter, Instagram } from 'lucide-react'
 
 //@ts-ignore
 import { toast } from "sonner";
@@ -12,12 +14,12 @@ import { Appbar } from "./Appbar";
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
 import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
 import { YT_REGEX } from "@/app/lib/utils";
-
 import YouTubePlayer from "youtube-player";
-import { useSession } from "next-auth/react";
 import type { Session } from "next-auth";
 import Image from "next/image";
-/*import {
+
+
+import {
   Dialog,
   DialogContent,
   DialogHeader,
@@ -25,8 +27,8 @@ import Image from "next/image";
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-//import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
-*/
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
+
 
 
 interface Video {
@@ -81,6 +83,7 @@ export default function StreamView({
         credentials: "include",
       });
       const json = await res.json();
+
       if (json.streams && Array.isArray(json.streams)) {
         setQueue(
           json.streams.length > 0
@@ -294,7 +297,7 @@ export default function StreamView({
       <div className='mx-auto text-2xl bg-gradient-to-r rounded-lg from-indigo-600 to-violet-800 font-bold'>
             {spaceName}
             </div>
-      <div className="flex justify-center px-5 md:px-10 xl:px-20">
+      <div className="flex justify-center px-5 md:px-10 xl:px-20 pt-12">
         <div className="grid grid-cols-1 gap-y-5 lg:gap-x-5 lg:grid-cols-5 w-screen py-5 lg:py-8">
           <div className="col-span-3 order-2 lg:order-1">
             <div className="flex flex-col md:flex-row justify-between mb-4">
@@ -304,7 +307,7 @@ export default function StreamView({
               <div className="flex space-x-2">
               <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
   <DropdownMenuTrigger asChild>
-    <Button onClick={() => setIsOpen(true)} className="bg-purple-700 hover:bg-purple-800 text-white">
+    <Button onClick={() => setIsOpen(true)} className="hover:opacity-90 text-white" style={{backgroundColor: '#615ED6'}}>
       <Share2 className="mr-2 h-4 w-4" /> Share
     </Button>
   </DropdownMenuTrigger>
@@ -438,7 +441,8 @@ export default function StreamView({
                     <Button
                       disabled={loading}
                       type="submit"
-                      className="w-full bg-purple-600 hover:bg-purple-700 text-white transition-colors"
+                      className="w-full text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+                      style={{backgroundColor: '#615ED6'}}
                     >
                       {loading ? "Loading..." : "Add to Queue"}
                     </Button>
@@ -485,7 +489,8 @@ export default function StreamView({
                     <Button
                       disabled={playNextLoader}
                       onClick={playNext}
-                      className="w-full bg-purple-600 hover:bg-purple-700 text-white transition-colors"
+                      className="w-full text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+                      style={{backgroundColor: '#615ED6'}}
                     >
                       <Play className="mr-2 h-4 w-4" />{" "}
                       {playNextLoader ? "Loading..." : "Play next"}
@@ -518,7 +523,8 @@ export default function StreamView({
             </Button>
             <Button
               onClick={emptyQueue}
-              className="bg-red-600 hover:bg-red-700 text-white"
+              className="text-white transition-opacity hover:opacity-90"
+              style={{backgroundColor: '#615ED6'}}
             >
               Empty Queue
             </Button>
